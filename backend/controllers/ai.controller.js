@@ -418,11 +418,348 @@ const getAIProcessingStatus = async (req, res) => {
   }
 };
 
+/**
+ * NEW AI ENDPOINTS using aiService.js
+ * These endpoints use the comprehensive AI service with Zod validation
+ */
+
+// Import AI service functions
+const {
+  classifyDocument,
+  summarizeDocument,
+  extractFields,
+  analyzeMissingDocs,
+} = require('../services/aiService');
+
+// Import User model for missing docs analysis
+const User = require('../models/User');
+
+/**
+ * @desc    Classify a document type from OCR text
+ * @route   POST /api/ai/classify
+ * @access  Private
+ * @body    { ocrText: string }
+ */
+const classifyDoc = async (req, res) => {
+  try {
+    // Extract OCR text from request body
+    const { ocrText } = req.body;
+
+    // Validate OCR text is provided
+    if (!ocrText || ocrText.trim().length === 0) {
+      // Return 400 Bad Request if OCR text missing
+      return res.status(400).json({
+        success: false,
+        message: 'OCR text is required',
+      });
+    }
+
+    // Log classification request
+    console.log(`📋 Classification request from user ${req.user._id}`);
+
+    // Call AI service to classify document
+    // This uses Claude to identify document type
+    const result = await classifyDocument(ocrText);
+
+    // Check if classification failed
+    if (!result.success) {
+      // Return 500 Internal Server Error
+      return res.status(500).json({
+        success: false,
+        message: 'Failed to classify document',
+        error: result.error,
+      });
+    }
+
+    // Return 200 OK with classification result
+    res.status(200).json({
+      success: true,
+      message: 'Document classified successfully',
+      data: {
+        // Document type (passport, certificate, etc.)
+        documentType: result.data.documentType,
+
+        // Confidence score (0-100)
+        confidence: result.data.confidence,
+
+        // Reasoning for classification
+        reasoning: result.data.reasoning,
+      },
+      metadata: result.metadata,
+    });
+  } catch (error) {
+    // Log error
+    console.error('Classification error:', error);
+
+    // Return 500 Internal Server Error
+    res.status(500).json({
+      success: false,
+      message: 'Server error during classification',
+      error: error.message,
+    });
+  }
+};
+
+/**
+ * @desc    Summarize a document from OCR text
+ * @route   POST /api/ai/summarize
+ * @access  Private
+ * @body    { ocrText: string, docType: string }
+ */
+const summarizeDoc = async (req, res) => {
+  try {
+    // Extract data from request body
+    const { ocrText, docType } = req.body;
+
+    // Validate required fields
+    if (!ocrText || ocrText.trim().length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: 'OCR text is required',
+      });
+    }
+
+    if (!docType) {
+      return res.status(400).json({
+        success: false,
+        message: 'Document type is required',
+      });
+    }
+
+    // Log summarization request
+    console.log(`📝 Summarization request for ${docType} from user ${req.user._id}`);
+
+    // Call AI service to summarize document
+    // This uses Claude to create a 2-3 sentence summary
+    const result = await summarizeDocument(ocrText, docType);
+
+    // Check if summarization failed
+    if (!result.success) {
+      return res.status(500).json({
+        success: false,
+        message: 'Failed to summarize document',
+        error: result.error,
+      });
+    }
+
+    // Return 200 OK with summary
+    res.status(200).json({
+      success: true,
+      message: 'Document summarized successfully',
+      data: {
+        // 2-3 sentence summary
+        summary: result.data.summary,
+
+        // Document type
+        docType: docType,
+      },
+      metadata: result.metadata,
+    });
+  } catch (error) {
+    // Log error
+    console.error('Summarization error:', error);
+
+    // Return 500 Internal Server Error
+    res.status(500).json({
+      success: false,
+      message: 'Server error during summarization',
+      error: error.message,
+    });
+  }
+};
+
+/**
+ * @desc    Extract structured fields from document
+ * @route   POST /api/ai/extract
+ * @access  Private
+ * @body    { ocrText: string, docType: string }
+ */
+const extractDocFields = async (req, res) => {
+  try {
+    // Extract data from request body
+    const { ocrText, docType } = req.body;
+
+    // Validate required fields
+    if (!ocrText || ocrText.trim().length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: 'OCR text is required',
+      });
+    }
+
+    if (!docType) {
+      return res.status(400).json({
+        success: false,
+        message: 'Document type is required',
+      });
+    }
+
+    // Log extraction request
+    console.log(`🔍 Field extraction request for ${docType} from user ${req.user._id}`);
+
+    // Call AI service to extract fields
+    // This uses Claude to extract specific data fields
+    const result = await extractFields(ocrText, docType);
+
+    // Check if extraction failed
+    if (!result.success) {
+      return res.status(500).json({
+        success: false,
+        message: 'Failed to extract fields',
+        error: result.error,
+      });
+    }
+
+    // Return 200 OK with extracted fields
+    res.status(200).json({
+      success: true,
+      message: 'Fields extracted successfully',
+      data: {
+        // Structured key-value pairs
+        fields: result.data,
+
+        // Document type
+        docType: docType,
+
+        // Number of fields extracted
+        fieldCount: Object.keys(result.data).length,
+      },
+      metadata: result.metadata,
+    });
+  } catch (error) {
+    // Log error
+    console.error('Extraction error:', error);
+
+    // Return 500 Internal Server Error
+    res.status(500).json({
+      success: false,
+      message: 'Server error during extraction',
+      error: error.message,
+    });
+  }
+};
+
+/**
+ * @desc    Suggest missing documents for user
+ * @route   GET /api/ai/suggest-missing
+ * @access  Private
+ * @query   None (uses authenticated user's data)
+ */
+const suggestMissingDocs = async (req, res) => {
+  try {
+    // Get authenticated user with populated data
+    // Need country information and documents
+    const user = await User.findById(req.user._id).populate('country');
+
+    // Check if user exists
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: 'User not found',
+      });
+    }
+
+    // Check if user has country assigned
+    if (!user.country) {
+      return res.status(400).json({
+        success: false,
+        message: 'User does not have a destination country assigned',
+      });
+    }
+
+    // Get user's uploaded documents
+    const documents = await Document.find({ userId: user._id });
+
+    // Extract document types from uploaded documents
+    const uploadedDocTypes = documents.map((doc) => doc.docType);
+
+    // Get required documents from country
+    const requiredDocTypes = user.country.requiredDocuments;
+
+    // Get country name
+    const countryName = user.country.countryName;
+
+    // Get user progress
+    const userProgress = user.progress;
+
+    // Log missing docs analysis request
+    console.log(`📊 Missing docs analysis for user ${user._id} (${countryName})`);
+    console.log(`📈 Progress: ${userProgress}%`);
+    console.log(`📤 Uploaded: ${uploadedDocTypes.length}/${requiredDocTypes.length}`);
+
+    // Call AI service to analyze missing documents
+    // This uses Claude to provide guidance on what's missing
+    const result = await analyzeMissingDocs(
+      uploadedDocTypes,
+      requiredDocTypes,
+      countryName,
+      userProgress
+    );
+
+    // Check if analysis failed
+    if (!result.success) {
+      return res.status(500).json({
+        success: false,
+        message: 'Failed to analyze missing documents',
+        error: result.error,
+      });
+    }
+
+    // Return 200 OK with missing documents analysis
+    res.status(200).json({
+      success: true,
+      message: 'Missing documents analyzed successfully',
+      data: {
+        // User's current country
+        country: {
+          _id: user.country._id,
+          name: countryName,
+          code: user.country.countryCode,
+        },
+
+        // Current progress
+        progress: userProgress,
+
+        // Uploaded vs required count
+        uploadedCount: uploadedDocTypes.length,
+        requiredCount: requiredDocTypes.length,
+
+        // Missing documents with guidance
+        missingDocuments: result.data.missingDocuments,
+
+        // Completion message
+        completionMessage: result.data.completionMessage,
+
+        // Next steps
+        nextSteps: result.data.nextSteps,
+      },
+      metadata: result.metadata,
+    });
+  } catch (error) {
+    // Log error
+    console.error('Missing docs analysis error:', error);
+
+    // Return 500 Internal Server Error
+    res.status(500).json({
+      success: false,
+      message: 'Server error analyzing missing documents',
+      error: error.message,
+    });
+  }
+};
+
 // Export all controller functions
 module.exports = {
+  // Original functions
   processAIExtraction,
   manualAIProcess,
   getAIProcessingStatus,
   buildPromptForDocType,
   parseAIResponse,
+
+  // New AI service endpoints
+  classifyDoc,
+  summarizeDoc,
+  extractDocFields,
+  suggestMissingDocs,
 };

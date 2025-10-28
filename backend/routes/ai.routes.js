@@ -8,6 +8,10 @@ const router = express.Router();
 const {
   manualAIProcess,
   getAIProcessingStatus,
+  classifyDoc,
+  summarizeDoc,
+  extractDocFields,
+  suggestMissingDocs,
 } = require('../controllers/ai.controller');
 
 // Import middleware
@@ -55,6 +59,106 @@ router.get('/status/:id', protect, getAIProcessingStatus);
 // - Error messages if any stage failed
 // - Counts of extracted fields
 // Useful for polling status during processing
+
+/**
+ * NEW AI SERVICE ENDPOINTS
+ * These endpoints use the comprehensive AI service with Zod validation
+ * All endpoints require authentication via protect middleware
+ */
+
+/**
+ * @route   POST /api/ai/classify
+ * @desc    Classify document type from OCR text
+ * @access  Private (requires authentication)
+ * @headers Authorization: Bearer <token>
+ * @body    { ocrText: string }
+ * @returns { documentType: string, confidence: number, reasoning: string }
+ */
+router.post('/classify', protect, classifyDoc);
+// POST request to /api/ai/classify
+// protect middleware verifies JWT token
+// Request body must contain:
+// - ocrText: Text extracted from document (string, required)
+// Response includes:
+// - documentType: One of 12 document types (passport, certificate, etc.)
+// - confidence: Confidence score 0-100
+// - reasoning: Why Claude classified it this way
+// Uses Claude 3.5 Sonnet with temperature=0 for deterministic results
+// Validates response using Zod ClassificationSchema
+
+/**
+ * @route   POST /api/ai/summarize
+ * @desc    Generate 2-3 sentence summary of document
+ * @access  Private (requires authentication)
+ * @headers Authorization: Bearer <token>
+ * @body    { ocrText: string, docType: string }
+ * @returns { summary: string, docType: string }
+ */
+router.post('/summarize', protect, summarizeDoc);
+// POST request to /api/ai/summarize
+// protect middleware verifies JWT token
+// Request body must contain:
+// - ocrText: Text extracted from document (string, required)
+// - docType: Type of document (string, required)
+// Response includes:
+// - summary: 2-3 sentence summary focusing on key immigration details
+// - docType: Echo of the document type
+// Uses Claude 3.5 Sonnet with temperature=0.3 for consistent summaries
+// Validates response using Zod SummarySchema
+
+/**
+ * @route   POST /api/ai/extract
+ * @desc    Extract structured fields from document
+ * @access  Private (requires authentication)
+ * @headers Authorization: Bearer <token>
+ * @body    { ocrText: string, docType: string }
+ * @returns { fields: object, docType: string, fieldCount: number }
+ */
+router.post('/extract', protect, extractDocFields);
+// POST request to /api/ai/extract
+// protect middleware verifies JWT token
+// Request body must contain:
+// - ocrText: Text extracted from document (string, required)
+// - docType: Type of document (string, required)
+// Response includes:
+// - fields: Key-value pairs of extracted data
+//   - For passport: fullName, passportNumber, dateOfBirth, nationality, etc.
+//   - For certificate: fullName, degree, institution, etc.
+//   - For employment: fullName, position, company, salary, etc.
+// - docType: Echo of the document type
+// - fieldCount: Number of fields extracted
+// Uses Claude 3.5 Sonnet with temperature=0 for accurate extraction
+// Validates response using Zod ExtractedFieldsSchema
+
+/**
+ * @route   GET /api/ai/suggest-missing
+ * @desc    Analyze user's uploaded documents and suggest what's missing
+ * @access  Private (requires authentication)
+ * @headers Authorization: Bearer <token>
+ * @returns Missing documents with priority and guidance
+ */
+router.get('/suggest-missing', protect, suggestMissingDocs);
+// GET request to /api/ai/suggest-missing
+// protect middleware verifies JWT token
+// No body required - uses authenticated user's data
+// Automatically:
+// - Fetches user's uploaded documents
+// - Gets required documents for user's destination country
+// - Calculates what's missing
+// - Calls Claude to provide prioritized guidance
+// Response includes:
+// - country: User's destination country info
+// - progress: Current completion percentage
+// - uploadedCount: Number of documents uploaded
+// - requiredCount: Number of documents required
+// - missingDocuments: Array of missing documents with:
+//   - documentType: Type of document missing
+//   - priority: critical/high/medium/low
+//   - guidance: Actionable advice on obtaining the document
+// - completionMessage: Encouraging message about progress
+// - nextSteps: What to do after uploading all documents
+// Uses Claude 3.5 Sonnet with temperature=0.3 for helpful guidance
+// Validates response using Zod MissingDocsSchema
 
 // Export router
 module.exports = router;
