@@ -6,11 +6,9 @@ const Country = require('../models/Country');
 // Import cloudinary for file upload and management
 const cloudinary = require('cloudinary').v2;
 
-// Import Tesseract.js for OCR (Optical Character Recognition)
-const Tesseract = require('tesseract.js');
-
-// Import node-fetch for downloading images from URLs
-const fetch = require('node-fetch');
+// Import OCR service for text extraction from images
+// This service wraps Tesseract.js with additional features
+const { extractTextFromImage } = require('../services/ocrService');
 
 /**
  * @desc    Upload document to Cloudinary and create document record
@@ -132,77 +130,157 @@ const uploadDocument = async (req, res) => {
 };
 
 /**
- * @desc    Process OCR on uploaded document
+ * @desc    Process OCR on uploaded document using OCR service
  * @param   {ObjectId} documentId - Document ID to process
  * @access  Internal function (not an API endpoint)
+ *
+ * This function:
+ * 1. Finds the document in database
+ * 2. Downloads image from Cloudinary
+ * 3. Calls OCR service to extract text
+ * 4. Saves OCR results (text, confidence score)
+ * 5. Triggers AI processing if OCR succeeds
  */
 const processOCR = async (documentId) => {
   try {
-    // Find document by ID
+    // Step 1: Find document by ID
+    // We need the document to get the Cloudinary URL and update status
     const document = await Document.findById(documentId);
 
-    // Check if document exists
+    // Validate document exists
     if (!document) {
-      console.error('Document not found for OCR processing');
+      console.error('❌ Document not found for OCR processing');
       return;
     }
 
-    // Update OCR status to processing
+    // Log OCR start
+    console.log(`🔍 Starting OCR for document: ${documentId}`);
+    console.log(`📄 Document type: ${document.docType}`);
+    console.log(`🔗 File URL: ${document.fileURL}`);
+
+    // Step 2: Update document status to "processing"
+    // This tells the frontend that OCR is in progress
     document.ocrStatus = 'processing';
     document.status = 'processing';
     await document.save();
 
-    // Download image from Cloudinary URL
-    // Tesseract needs image buffer or local path
-    const response = await fetch(document.fileURL);
-    const imageBuffer = await response.buffer();
-
-    // Run OCR using Tesseract.js
-    // recognize() extracts text from image
-    const ocrResult = await Tesseract.recognize(
-      imageBuffer, // Image data
-      'eng', // Language (eng = English, can use 'eng+spa' for multiple)
+    // Step 3: Call OCR service to extract text from image
+    // The service handles downloading from URL, running Tesseract, and error handling
+    const ocrResult = await extractTextFromImage(
+      document.fileURL, // Cloudinary URL (service will download it)
       {
-        // Logger for progress tracking
-        logger: (info) => {
-          console.log(`OCR Progress for ${documentId}:`, info.status, info.progress);
+        // Language for OCR (default: English)
+        // Can use 'spa' for Spanish, 'fra' for French, etc.
+        // Can use multiple: 'eng+spa' for English and Spanish
+        language: 'eng',
+
+        // Progress callback - logs OCR progress to console
+        onProgress: (info) => {
+          // info contains: { status, progress }
+          // status: Current operation (loading, recognizing, etc.)
+          // progress: Progress value (0 to 1)
+
+          // Only log important updates to avoid console spam
+          if (info.status === 'recognizing text') {
+            const percent = Math.round(info.progress * 100);
+            console.log(`⚙️  OCR Progress [${documentId}]: ${percent}%`);
+          }
         },
       }
     );
 
-    // Extract text from OCR result
-    // ocrResult.data.text contains the recognized text
-    const extractedText = ocrResult.data.text;
+    // Step 4: Check if OCR was successful
+    if (!ocrResult.success) {
+      // OCR failed - throw error to trigger catch block
+      throw new Error(
+        ocrResult.error?.message || 'OCR processing failed without error message'
+      );
+    }
 
-    // Update document with OCR results
-    document.ocrText = extractedText;
+    // Log OCR success with confidence score
+    console.log(`✅ OCR completed for document ${documentId}`);
+    console.log(`📊 Confidence Score: ${ocrResult.confidence.toFixed(2)}%`);
+    console.log(`📝 Extracted ${ocrResult.stats.wordCount} words`);
+    console.log(`📏 Character count: ${ocrResult.stats.characterCount}`);
+
+    // Check if OCR quality is acceptable
+    // Low confidence might indicate poor image quality or wrong language
+    if (!ocrResult.isHighQuality) {
+      console.warn(
+        `⚠️  Low OCR confidence (${ocrResult.confidence.toFixed(2)}%). Consider manual review.`
+      );
+    }
+
+    // Step 5: Save OCR results to document
+    // Store extracted text in document for AI processing
+    document.ocrText = ocrResult.text;
+
+    // Save confidence score in adminNotes for reference
+    // This helps admins assess OCR quality
+    const confidenceNote = `OCR Confidence: ${ocrResult.confidence.toFixed(2)}% | Words: ${ocrResult.stats.wordCount} | Quality: ${ocrResult.isHighQuality ? 'High' : 'Low'}`;
+
+    // Append to existing admin notes or create new
+    if (document.adminNotes) {
+      document.adminNotes += `\n${confidenceNote}`;
+    } else {
+      document.adminNotes = confidenceNote;
+    }
+
+    // Update OCR status to completed
     document.ocrStatus = 'completed';
+
+    // Clear any previous OCR error
+    document.ocrError = null;
+
+    // Save document with OCR results
     await document.save();
 
-    console.log(`✅ OCR completed for document ${documentId}`);
+    // Step 6: Trigger AI processing after successful OCR
+    // AI processing uses the extracted text to generate summary and extract fields
+    console.log(`🤖 Triggering AI processing for document ${documentId}`);
 
-    // Trigger AI processing after OCR completes
     // Import AI controller function
     const { processAIExtraction } = require('./ai.controller');
-    // Call AI processing in background
+
+    // Call AI processing in background (non-blocking)
+    // Using setImmediate ensures this runs after current operation completes
     setImmediate(() => {
       processAIExtraction(documentId);
     });
+
+    // Log completion
+    console.log(`🎉 OCR pipeline completed for document ${documentId}`);
   } catch (error) {
-    // Log error
-    console.error('OCR processing error:', error);
+    // OCR processing failed - log detailed error
+    console.error('❌ OCR processing error:', error.message);
+    console.error('Stack trace:', error.stack);
 
     // Update document with error status
+    // This allows user to see what went wrong and retry if needed
     try {
+      // Re-fetch document in case it changed
       const document = await Document.findById(documentId);
+
       if (document) {
+        // Set OCR status to failed
         document.ocrStatus = 'failed';
+
+        // Store error message for user/admin reference
         document.ocrError = error.message;
+
+        // Set overall document status to failed
         document.status = 'failed';
+
+        // Save error state
         await document.save();
+
+        console.log(`💾 Document ${documentId} marked as failed`);
+      } else {
+        console.error('Cannot update document status: document not found');
       }
     } catch (updateError) {
-      console.error('Error updating document status:', updateError);
+      // Error updating error status (rare, but possible)
+      console.error('Error updating document status:', updateError.message);
     }
   }
 };
