@@ -12,6 +12,7 @@ const {
   updateUserStatus,
   verifyDocument,
   getDashboardStats,
+  getAnalytics,
   deleteUser,
 } = require('../controllers/admin.controller');
 
@@ -41,6 +42,26 @@ router.get('/stats', protect, admin, getDashboardStats);
 // Returns comprehensive dashboard statistics
 
 /**
+ * @route   GET /api/admin/analytics
+ * @desc    Get comprehensive analytics data
+ * @access  Private/Admin
+ * @headers Authorization: Bearer <token>
+ * @returns {
+ *   usersByCountry: Array of countries with user counts and status breakdown,
+ *   completionStats: Completion distribution by percentage ranges,
+ *   overview: Total users, average progress, completion rate
+ * }
+ */
+router.get('/analytics', protect, admin, getAnalytics);
+// GET request to /api/admin/analytics
+// Returns detailed analytics for admin dashboard:
+// - Users per country with status breakdown (pending, in-progress, etc.)
+// - Average progress per country
+// - Completion distribution (0-20%, 21-40%, 41-60%, 61-80%, 81-100%, 100%)
+// - Overall statistics (total users, average progress, completion rate)
+// Uses MongoDB aggregation pipelines for efficient data processing
+
+/**
  * @route   GET /api/admin/users
  * @desc    Get all users with filtering and pagination
  * @access  Private/Admin
@@ -48,6 +69,10 @@ router.get('/stats', protect, admin, getDashboardStats);
  * @query   status - Filter by application status (pending, in-progress, etc.)
  * @query   country - Filter by country ObjectId
  * @query   search - Search in name or email
+ * @query   minProgress - Filter by minimum completion percentage (0-100)
+ * @query   maxProgress - Filter by maximum completion percentage (0-100)
+ * @query   sortBy - Sort field (createdAt, lastUpdated, progress, name, email)
+ * @query   order - Sort order (asc, desc) default: desc
  * @query   page - Page number (default: 1)
  * @query   limit - Results per page (default: 10)
  */
@@ -146,20 +171,23 @@ module.exports = router;
  * app.use('/api/admin', adminRoutes);
  *
  * This will create the following endpoints (all require admin role):
- * - GET    /api/admin/stats
- * - GET    /api/admin/users
- * - GET    /api/admin/users/:id
- * - PUT    /api/admin/users/:id/status
- * - DELETE /api/admin/users/:id
- * - GET    /api/admin/documents
- * - PUT    /api/admin/documents/:id/verify
+ * - GET    /api/admin/stats           - Dashboard statistics
+ * - GET    /api/admin/analytics       - Comprehensive analytics data
+ * - GET    /api/admin/users           - List users with filters
+ * - GET    /api/admin/users/:id       - User details with documents
+ * - PUT    /api/admin/users/:id/status - Update user status
+ * - DELETE /api/admin/users/:id       - Delete user
+ * - GET    /api/admin/documents       - List documents with filters
+ * - PUT    /api/admin/documents/:id/verify - Verify/reject document
  *
  * Authorization:
  * All routes require:
  * 1. Valid JWT token in Authorization header
  * 2. User role must be 'admin'
  *
- * Example request:
- * GET /api/admin/users?status=pending&page=1
+ * Example requests:
+ * GET /api/admin/users?status=pending&minProgress=50&page=1
+ * GET /api/admin/analytics
+ * GET /api/admin/users/507f1f77bcf86cd799439011
  * Headers: { Authorization: 'Bearer <admin-token>' }
  */
