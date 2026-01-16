@@ -97,6 +97,27 @@ img {
     padding: 1rem 0;
 }
 
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo a {
+    display: block;
+    line-height: 0;
+}
+
+.logo-image {
+    height: 50px;
+    width: auto;
+    transition: var(--transition-fast);
+}
+
+.logo-image:hover {
+    transform: scale(1.05);
+}
+
+/* Fallback text logo styles (if image doesn't load) */
 .logo h1 {
     font-size: 1.8rem;
     color: var(--secondary-color);
@@ -838,6 +859,24 @@ section {
     margin-bottom: var(--spacing-md);
 }
 
+.footer-logo {
+    margin-bottom: 1rem;
+}
+
+.footer-logo-image {
+    height: 60px;
+    width: auto;
+    filter: brightness(0) invert(1);
+    opacity: 0.9;
+    transition: var(--transition-fast);
+}
+
+.footer-logo-image:hover {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+/* Fallback text styles for footer */
 .footer-section h3 {
     font-size: 1.8rem;
     margin-bottom: 1rem;
@@ -936,6 +975,14 @@ section {
 @media (max-width: 768px) {
     .mobile-toggle {
         display: flex;
+    }
+
+    .logo-image {
+        height: 40px;
+    }
+
+    .footer-logo-image {
+        height: 50px;
     }
 
     .nav-menu {
