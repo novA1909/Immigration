@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mama Nia's Pizza | Authentic Italian Flavors</title>
+    <meta name="description" content="Experience authentic Italian pizza crafted with love at Mama Nia's. Fresh ingredients, family recipes, and the warmth of Italy in every bite.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="pizza-loader">
+            <div class="pizza-slice"></div>
+            <div class="pizza-slice"></div>
+            <div class="pizza-slice"></div>
+            <div class="pizza-slice"></div>
+            <div class="pizza-slice"></div>
+            <div class="pizza-slice"></div>
+        </div>
+        <p class="loader-text">Preparing your experience...</p>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo">
+                <span class="logo-icon">🍕</span>
+                <span class="logo-text">Mama Nia's</span>
+            </a>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#about" class="nav-link">Our Story</a></li>
+                <li><a href="#menu" class="nav-link">Menu</a></li>
+                <li><a href="#gallery" class="nav-link">Gallery</a></li>
+                <li><a href="#testimonials" class="nav-link">Reviews</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <a href="#order" class="btn btn-primary nav-cta">Order Now</a>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg">
+            <div class="floating-ingredients">
+                <span class="ingredient tomato">🍅</span>
+                <span class="ingredient basil">🌿</span>
+                <span class="ingredient cheese">🧀</span>
+                <span class="ingredient pepper">🌶️</span>
+                <span class="ingredient olive">🫒</span>
+                <span class="ingredient mushroom">🍄</span>
+            </div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <span class="tagline animate-slide-up">Since 1985</span>
+                <h1 class="hero-title animate-slide-up delay-1">
+                    <span class="title-line">Authentic Italian</span>
+                    <span class="title-line accent">Pizza</span>
+                    <span class="title-line">Made with Love</span>
+                </h1>
+                <p class="hero-description animate-slide-up delay-2">
+                    From our family's kitchen in Naples to your table. Every pizza tells a story of tradition, passion, and the finest ingredients.
+                </p>
+                <div class="hero-buttons animate-slide-up delay-3">
+                    <a href="#menu" class="btn btn-primary btn-large">
+                        <span>Explore Menu</span>
+                        <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                    <a href="#about" class="btn btn-secondary btn-large">Our Story</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="pizza-showcase">
+                    <div class="pizza-plate">
+                        <div class="pizza-main">
+                            <div class="pizza-circle">
+                                <div class="pizza-toppings">
+                                    <span class="topping t1"></span>
+                                    <span class="topping t2"></span>
+                                    <span class="topping t3"></span>
+                                    <span class="topping t4"></span>
+                                    <span class="topping t5"></span>
+                                    <span class="topping t6"></span>
+                                    <span class="topping t7"></span>
+                                    <span class="topping t8"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="steam">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="pizza-badge">
+                        <span class="badge-text">Fresh</span>
+                        <span class="badge-highlight">Daily</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span class="mouse">
+                <span class="wheel"></span>
+            </span>
+            <span class="scroll-text">Scroll to explore</span>
+        </div>
+    </section>
+
+    <!-- Features Strip -->
+    <section class="features-strip">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🔥</div>
+                    <div class="feature-text">
+                        <h4>Wood-Fired</h4>
+                        <p>Traditional brick oven</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🌾</div>
+                    <div class="feature-text">
+                        <h4>Fresh Dough</h4>
+                        <p>Made daily in-house</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🇮🇹</div>
+                    <div class="feature-text">
+                        <h4>Imported Ingredients</h4>
+                        <p>Direct from Italy</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">👨‍🍳</div>
+                    <div class="feature-text">
+                        <h4>Expert Pizzaiolos</h4>
+                        <p>40+ years experience</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-images">
+                    <div class="image-stack">
+                        <div class="about-img img-1 reveal-left">
+                            <div class="img-placeholder restaurant"></div>
+                            <div class="img-frame"></div>
+                        </div>
+                        <div class="about-img img-2 reveal-right">
+                            <div class="img-placeholder chef"></div>
+                            <div class="img-frame"></div>
+                        </div>
+                        <div class="experience-badge">
+                            <span class="exp-number">40+</span>
+                            <span class="exp-text">Years of Excellence</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-text reveal-up">
+                    <span class="section-tag">Our Story</span>
+                    <h2 class="section-title">A Family Tradition <span class="accent">Since 1985</span></h2>
+                    <div class="story-content">
+                        <p class="lead">
+                            When Mama Nia first arrived from Naples with nothing but her grandmother's recipes and a dream, she never imagined her little pizzeria would become a beloved institution.
+                        </p>
+                        <p>
+                            Every morning, just as the sun rises, our pizzaiolos begin their ritual – mixing flour, water, and a touch of magic to create the perfect dough. It's the same recipe Mama Nia brought from the old country, unchanged for three generations.
+                        </p>
+                        <p>
+                            Today, her grandchildren continue the legacy, honoring every pizza that leaves our kitchen with the same love and dedication that started it all.
+                        </p>
+                    </div>
+                    <div class="about-signature">
+                        <div class="signature-img">
+                            <span class="signature-icon">👵</span>
+                        </div>
+                        <div class="signature-text">
+                            <span class="signature-name">Mama Nia</span>
+                            <span class="signature-title">Founder & Head Chef</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="about-decoration">
+            <div class="deco-circle"></div>
+            <div class="deco-dots"></div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu" id="menu">
+        <div class="container">
+            <div class="section-header reveal-up">
+                <span class="section-tag">Our Menu</span>
+                <h2 class="section-title">Handcrafted with <span class="accent">Passion</span></h2>
+                <p class="section-description">Each pizza is a masterpiece, made fresh to order with premium ingredients</p>
+            </div>
+
+            <div class="menu-tabs reveal-up">
+                <button class="tab-btn active" data-tab="pizzas">
+                    <span class="tab-icon">🍕</span>
+                    <span class="tab-text">Signature Pizzas</span>
+                </button>
+                <button class="tab-btn" data-tab="specialty">
+                    <span class="tab-icon">⭐</span>
+                    <span class="tab-text">Chef's Specials</span>
+                </button>
+                <button class="tab-btn" data-tab="sides">
+                    <span class="tab-icon">🥗</span>
+                    <span class="tab-text">Sides & Salads</span>
+                </button>
+                <button class="tab-btn" data-tab="drinks">
+                    <span class="tab-icon">🍷</span>
+                    <span class="tab-text">Beverages</span>
+                </button>
+            </div>
+
+            <div class="menu-content">
+                <!-- Signature Pizzas -->
+                <div class="menu-tab-content active" id="pizzas">
+                    <div class="menu-grid">
+                        <div class="menu-card reveal-up">
+                            <div class="card-badge">Bestseller</div>
+                            <div class="card-image pizza-margherita"></div>
+                            <div class="card-content">
+                                <div class="card-header">
+                                    <h3 class="card-title">Margherita Classica</h3>
+                                    <span class="card-price">$16</span>
+                                </div>
+                                <p class="card-description">San Marzano tomatoes, fresh mozzarella di bufala, basil, extra virgin olive oil</p>
+                                <div class="card-footer">
+                                    <span class="card-tag">Vegetarian</span>
+                                    <button class="btn btn-order">Add to Order</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="menu-card reveal-up delay-1">
+                            <div class="card-badge hot">Spicy</div>
+                            <div class="card-image pizza-diavola"></div>
+                            <div class="card-content">
+                                <div class="card-header">
+                                    <h3 class="card-title">Diavola</h3>
+                                    <span class="card-price">$19</span>
+                                </div>
+                                <p class="card-description">Spicy salami, Calabrian chilies, roasted peppers, smoked mozzarella, honey drizzle</p>
+                                <div class="card-footer">
+                                    <span class="card-tag">🔥 Hot</span>
+                                    <button class="btn btn-order">Add to Order</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="menu-card reveal-up delay-2">
+                            <div class="card-image pizza-quattro"></div>
+                            <div class="card-content">
+                                <div class="card-header">
+                                    <h3 class="card-title">Quattro Formaggi</h3>
+                                    <span class="card-price">$21</span>
+                                </div>
+                                <p class="card-description">Mozzarella, gorgonzola, fontina, aged parmesan, truffle oil finish</p>
+                                <div class="card-footer">
+                                    <span class="card-tag">Vegetarian</span>
+                                    <button class="btn btn-order">Add to Order</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="menu-card reveal-up delay-3">
+                            <div class="card-badge">Fan Favorite</div>
+                            <div class="card-image pizza-prosciutto"></div>
+                            <div class="card-content">
+                                <div class="card-header">
+                                    <h3 class="card-title">Prosciutto e Rucola</h3>
+                                    <span class="card-price">$23</span>
+                                </div>
+                                <p class="card-description">24-month aged prosciutto di Parma, wild arugula, shaved parmesan, balsamic glaze</p>
+                                <div class="card-footer">
+                                    <button class="btn btn-order">Add to Order</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="menu-card reveal-up">
+                            <div class="card-image pizza-funghi"></div>
+                            <div class="card-content">
+                                <div class="card-header">
+                                    <h3 class="card-title">Funghi Misti</h3>
+                                    <span class="card-price">$20</span>
+                                </div>
+                                <p class="card-description">Wild mushroom medley, truffle cream, fontina, fresh thyme, garlic confit</p>
+                                <div class="card-footer">
+                                    <span class="card-tag">Vegetarian</span>
+                                    <button class="btn btn-order">Add to Order</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="menu-card reveal-up delay-1">
+                            <div class="card-image pizza-marinara"></div>
+                            <div class="card-content">
+                                <div class="card-header">
+                                    <h3 class="card-title">Marinara</h3>
+                                    <span class="card-price">$14</span>
+                                </div>
+                                <p class="card-description">San Marzano tomatoes, garlic, oregano, extra virgin olive oil – the original</p>
+                                <div class="card-footer">
+                                    <span class="card-tag">Vegan</span>
+                                    <button class="btn btn-order">Add to Order</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chef's Specials -->
+                <div class="menu-tab-content" id="specialty">
+                    <div class="menu-grid">
+                        <div class="menu-card reveal-up">
+                            <div class="card-badge premium">Premium</div>
+                            <div class="card-image pizza-tartufo"></div>
+                            <div class="card-content">
+                                <div class="card-header">
+                                    <h3 class="card-title">Tartufo Nero</h3>
+                                    <span class="card-price">$32</span>
+                                </div>
+                                <p class="card-description">Black truffle, burrata, wild mushrooms, truffle oil, aged parmesan shavings</p>
+                                <div class="card-footer">
+                                    <span class="card-tag">Seasonal</span>
+                                    <button class="btn btn-order">Add to Order</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="menu-card reveal-up delay-1">
+                            <div class="card-badge premium">Chef's Choice</div>
+                            <div class="card-image pizza-seafood"></div>
+                            <div class="card-content">
+                                <div class="card-header">
+                                    <h3 class="card-title">Frutti di Mare</h3>
+                                    <span class="card-price">$28</span>
+                                </div>
+                                <p class="card-description">Fresh shrimp, calamari, mussels, garlic white sauce, cherry tomatoes, parsley</p>
+                                <div class="card-footer">
+                                    <span class="card-tag">Seafood</span>
+                                    <button class="btn btn-order">Add to Order</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="menu-card reveal-up delay-2">
+                            <div class="card-image pizza-calzone"></div>
+                            <div class="card-content">
+                                <div class="card-header">
+                                    <h3 class="card-title">Calzone Ripieno</h3>
+                                    <span class="card-price">$22</span>
+                                </div>
+                                <p class="card-description">Folded pizza filled with ricotta, mozzarella, ham, mushrooms, served with marinara</p>
+                                <div class="card-footer">
+                                    <button class="btn btn-order">Add to Order</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sides & Salads -->
+                <div class="menu-tab-content" id="sides">
+                    <div class="menu-grid">
+                        <div class="menu-card small reveal-up">
+                            <div class="card-image side-bruschetta"></div>
+                            <div class="card-content">
+                                <div class="card-header">
+                                    <h3 class="card-title">Bruschetta Trio</h3>
+                                    <span class="card-price">$12</span>
+                                </div>
+                                <p class="card-description">Classic tomato, mushroom, and roasted pepper on grilled ciabatta</p>
+                                <div class="card-footer">
+                                    <button class="btn btn-order">Add to Order</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="menu-card small reveal-up delay-1">
+                            <div class="card-image side-caprese"></div>
+                            <div class="card-content">
+                                <div class="card-header">
+                                    <h3 class="card-title">Caprese Salad</h3>
+                                    <span class="card-price">$14</span>
+                                </div>
+                                <p class="card-description">Fresh mozzarella, heirloom tomatoes, basil, aged balsamic, olive oil</p>
+                                <div class="card-footer">
+                                    <button class="btn btn-order">Add to Order</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="menu-card small reveal-up delay-2">
+                            <div class="card-image side-arancini"></div>
+                            <div class="card-content">
+                                <div class="card-header">
+                                    <h3 class="card-title">Arancini</h3>
+                                    <span class="card-price">$10</span>
+                                </div>
+                                <p class="card-description">Crispy risotto balls stuffed with mozzarella, served with marinara</p>
+                                <div class="card-footer">
+                                    <button class="btn btn-order">Add to Order</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="menu-card small reveal-up delay-3">
+                            <div class="card-image side-caesar"></div>
+                            <div class="card-content">
+                                <div class="card-header">
+                                    <h3 class="card-title">Caesar Salad</h3>
+                                    <span class="card-price">$11</span>
+                                </div>
+                                <p class="card-description">Romaine hearts, house Caesar dressing, croutons, shaved parmesan</p>
+                                <div class="card-footer">
+                                    <button class="btn btn-order">Add to Order</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Beverages -->
+                <div class="menu-tab-content" id="drinks">
+                    <div class="menu-grid">
+                        <div class="menu-card small reveal-up">
+                            <div class="card-image drink-wine"></div>
+                            <div class="card-content">
+                                <div class="card-header">
+                                    <h3 class="card-title">House Wine</h3>
+                                    <span class="card-price">$8/glass</span>
+                                </div>
+                                <p class="card-description">Selection of Italian reds and whites</p>
+                                <div class="card-footer">
+                                    <button class="btn btn-order">Add to Order</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="menu-card small reveal-up delay-1">
+                            <div class="card-image drink-spritz"></div>
+                            <div class="card-content">
+                                <div class="card-header">
+                                    <h3 class="card-title">Aperol Spritz</h3>
+                                    <span class="card-price">$12</span>
+                                </div>
+                                <p class="card-description">Aperol, prosecco, splash of soda</p>
+                                <div class="card-footer">
+                                    <button class="btn btn-order">Add to Order</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="menu-card small reveal-up delay-2">
+                            <div class="card-image drink-limonata"></div>
+                            <div class="card-content">
+                                <div class="card-header">
+                                    <h3 class="card-title">Fresh Limonata</h3>
+                                    <span class="card-price">$5</span>
+                                </div>
+                                <p class="card-description">House-made Italian lemonade</p>
+                                <div class="card-footer">
+                                    <button class="btn btn-order">Add to Order</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="menu-card small reveal-up delay-3">
+                            <div class="card-image drink-espresso"></div>
+                            <div class="card-content">
+                                <div class="card-header">
+                                    <h3 class="card-title">Espresso</h3>
+                                    <span class="card-price">$4</span>
+                                </div>
+                                <p class="card-description">Traditional Italian espresso</p>
+                                <div class="card-footer">
+                                    <button class="btn btn-order">Add to Order</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-cta reveal-up">
+                <p>Want to see our full menu?</p>
+                <a href="#" class="btn btn-secondary">Download Full Menu (PDF)</a>
+            </div>
+        </div>
+        <div class="menu-decoration">
+            <div class="deco-pizza"></div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <div class="section-header reveal-up">
+                <span class="section-tag">Gallery</span>
+                <h2 class="section-title">Experience Our <span class="accent">Ambiance</span></h2>
+                <p class="section-description">Step into a warm, inviting space where every detail celebrates Italian culture</p>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="gallery-item large reveal-scale" data-caption="Our Wood-Fired Oven">
+                    <div class="gallery-image oven"></div>
+                    <div class="gallery-overlay">
+                        <span class="gallery-caption">Our Wood-Fired Oven</span>
+                    </div>
+                </div>
+                <div class="gallery-item reveal-scale delay-1" data-caption="Cozy Interior">
+                    <div class="gallery-image interior"></div>
+                    <div class="gallery-overlay">
+                        <span class="gallery-caption">Cozy Interior</span>
+                    </div>
+                </div>
+                <div class="gallery-item reveal-scale delay-2" data-caption="Fresh Ingredients">
+                    <div class="gallery-image ingredients"></div>
+                    <div class="gallery-overlay">
+                        <span class="gallery-caption">Fresh Ingredients</span>
+                    </div>
+                </div>
+                <div class="gallery-item reveal-scale delay-3" data-caption="Outdoor Patio">
+                    <div class="gallery-image patio"></div>
+                    <div class="gallery-overlay">
+                        <span class="gallery-caption">Outdoor Patio</span>
+                    </div>
+                </div>
+                <div class="gallery-item reveal-scale delay-4" data-caption="The Kitchen">
+                    <div class="gallery-image kitchen"></div>
+                    <div class="gallery-overlay">
+                        <span class="gallery-caption">The Kitchen</span>
+                    </div>
+                </div>
+                <div class="gallery-item tall reveal-scale delay-5" data-caption="Bar Area">
+                    <div class="gallery-image bar"></div>
+                    <div class="gallery-overlay">
+                        <span class="gallery-caption">Bar Area</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-header reveal-up">
+                <span class="section-tag">Reviews</span>
+                <h2 class="section-title">What Our <span class="accent">Guests Say</span></h2>
+            </div>
+
+            <div class="testimonials-slider">
+                <div class="testimonial-track" id="testimonial-track">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <div class="stars">★★★★★</div>
+                            <p class="testimonial-text">"The best pizza I've ever had outside of Italy. The Margherita is absolute perfection – simple, fresh, and bursting with flavor. Mama Nia's is a treasure!"</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">MR</div>
+                            <div class="author-info">
+                                <span class="author-name">Maria Rodriguez</span>
+                                <span class="author-title">Food Blogger</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <div class="stars">★★★★★</div>
+                            <p class="testimonial-text">"We've been coming here for 15 years and it's still our favorite spot. The ambiance, the service, the food – everything is consistently excellent."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">JT</div>
+                            <div class="author-info">
+                                <span class="author-name">James Thompson</span>
+                                <span class="author-title">Regular Customer</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <div class="stars">★★★★★</div>
+                            <p class="testimonial-text">"The Tartufo Nero pizza changed my life. Yes, it's that good. Worth every penny for the quality of ingredients and the incredible flavors."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">SC</div>
+                            <div class="author-info">
+                                <span class="author-name">Sofia Chen</span>
+                                <span class="author-title">Local Guide</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <div class="stars">★★★★★</div>
+                            <p class="testimonial-text">"My family celebrates every special occasion here. The staff treats us like family, and the kids love watching the pizzaiolos toss the dough!"</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">DP</div>
+                            <div class="author-info">
+                                <span class="author-name">David Park</span>
+                                <span class="author-title">Family of Four</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-controls">
+                    <button class="slider-btn prev" id="prev-btn" aria-label="Previous testimonial">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 12H5M12 19l-7-7 7-7"/>
+                        </svg>
+                    </button>
+                    <div class="slider-dots" id="slider-dots"></div>
+                    <button class="slider-btn next" id="next-btn" aria-label="Next testimonial">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="rating-summary reveal-up">
+                <div class="rating-badge">
+                    <span class="rating-number">4.9</span>
+                    <div class="rating-stars">★★★★★</div>
+                    <span class="rating-count">Based on 2,500+ reviews</span>
+                </div>
+                <div class="rating-platforms">
+                    <span class="platform">Google</span>
+                    <span class="platform">Yelp</span>
+                    <span class="platform">TripAdvisor</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="contact-wrapper">
+                <div class="contact-info reveal-left">
+                    <span class="section-tag">Contact Us</span>
+                    <h2 class="section-title">Visit <span class="accent">Mama Nia's</span></h2>
+                    <p class="contact-intro">We'd love to welcome you to our table. Reserve your spot or just drop by – there's always room for one more!</p>
+
+                    <div class="info-cards">
+                        <div class="info-card">
+                            <div class="info-icon">📍</div>
+                            <div class="info-content">
+                                <h4>Location</h4>
+                                <p>123 Little Italy Lane<br>New York, NY 10013</p>
+                            </div>
+                        </div>
+
+                        <div class="info-card">
+                            <div class="info-icon">🕐</div>
+                            <div class="info-content">
+                                <h4>Hours</h4>
+                                <p>Mon-Thu: 11am - 10pm<br>Fri-Sat: 11am - 11pm<br>Sunday: 12pm - 9pm</p>
+                            </div>
+                        </div>
+
+                        <div class="info-card">
+                            <div class="info-icon">📞</div>
+                            <div class="info-content">
+                                <h4>Contact</h4>
+                                <p>Phone: (212) 555-MAMA<br>Email: ciao@mamanias.com</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c2.717 0 3.056.01 4.122.06 1.065.05 1.79.217 2.428.465.66.254 1.216.598 1.772 1.153a4.908 4.908 0 011.153 1.772c.247.637.415 1.363.465 2.428.047 1.066.06 1.405.06 4.122 0 2.717-.01 3.056-.06 4.122-.05 1.065-.218 1.79-.465 2.428a4.883 4.883 0 01-1.153 1.772 4.915 4.915 0 01-1.772 1.153c-.637.247-1.363.415-2.428.465-1.066.047-1.405.06-4.122.06-2.717 0-3.056-.01-4.122-.06-1.065-.05-1.79-.218-2.428-.465a4.89 4.89 0 01-1.772-1.153 4.904 4.904 0 01-1.153-1.772c-.248-.637-.415-1.363-.465-2.428C2.013 15.056 2 14.717 2 12c0-2.717.01-3.056.06-4.122.05-1.066.217-1.79.465-2.428a4.88 4.88 0 011.153-1.772A4.897 4.897 0 015.45 2.525c.638-.248 1.362-.415 2.428-.465C8.944 2.013 9.283 2 12 2zm0 5a5 5 0 100 10 5 5 0 000-10zm6.5-.25a1.25 1.25 0 10-2.5 0 1.25 1.25 0 002.5 0zM12 9a3 3 0 110 6 3 3 0 010-6z"/></svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Twitter">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="contact-form-wrapper reveal-right" id="order">
+                    <div class="form-card">
+                        <h3 class="form-title">Make a Reservation</h3>
+                        <form class="contact-form" id="reservation-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="name">Name</label>
+                                    <input type="text" id="name" name="name" required placeholder="Your name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone</label>
+                                    <input type="tel" id="phone" name="phone" required placeholder="(123) 456-7890">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="date">Date</label>
+                                    <input type="date" id="date" name="date" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="time">Time</label>
+                                    <select id="time" name="time" required>
+                                        <option value="">Select time</option>
+                                        <option value="11:00">11:00 AM</option>
+                                        <option value="12:00">12:00 PM</option>
+                                        <option value="13:00">1:00 PM</option>
+                                        <option value="14:00">2:00 PM</option>
+                                        <option value="17:00">5:00 PM</option>
+                                        <option value="18:00">6:00 PM</option>
+                                        <option value="19:00">7:00 PM</option>
+                                        <option value="20:00">8:00 PM</option>
+                                        <option value="21:00">9:00 PM</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="guests">Number of Guests</label>
+                                <select id="guests" name="guests" required>
+                                    <option value="">Select party size</option>
+                                    <option value="1">1 Guest</option>
+                                    <option value="2">2 Guests</option>
+                                    <option value="3">3 Guests</option>
+                                    <option value="4">4 Guests</option>
+                                    <option value="5">5 Guests</option>
+                                    <option value="6">6 Guests</option>
+                                    <option value="7+">7+ Guests (Call us)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="notes">Special Requests</label>
+                                <textarea id="notes" name="notes" rows="3" placeholder="Allergies, special occasions, seating preferences..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-full">
+                                <span>Reserve Table</span>
+                                <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                                </svg>
+                            </button>
+                        </form>
+                        <p class="form-note">For parties of 7 or more, please call us directly at (212) 555-MAMA</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="map-section">
+            <div class="map-placeholder">
+                <div class="map-overlay">
+                    <span class="map-icon">📍</span>
+                    <p>123 Little Italy Lane, New York, NY 10013</p>
+                    <a href="https://maps.google.com" target="_blank" class="btn btn-secondary btn-small">Get Directions</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-wave">
+            <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+                <path fill="currentColor" d="M0,50 C150,100 350,0 500,50 C650,100 850,0 1000,50 C1150,100 1350,0 1440,50 L1440,100 L0,100 Z"/>
+            </svg>
+        </div>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="#home" class="footer-logo">
+                        <span class="logo-icon">🍕</span>
+                        <span class="logo-text">Mama Nia's</span>
+                    </a>
+                    <p class="footer-tagline">Authentic Italian pizza made with love since 1985. A family tradition, a neighborhood treasure.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+                        </a>
+                        <a href="#" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c2.717 0 3.056.01 4.122.06 1.065.05 1.79.217 2.428.465.66.254 1.216.598 1.772 1.153a4.908 4.908 0 011.153 1.772c.247.637.415 1.363.465 2.428.047 1.066.06 1.405.06 4.122 0 2.717-.01 3.056-.06 4.122-.05 1.065-.218 1.79-.465 2.428a4.883 4.883 0 01-1.153 1.772 4.915 4.915 0 01-1.772 1.153c-.637.247-1.363.415-2.428.465-1.066.047-1.405.06-4.122.06-2.717 0-3.056-.01-4.122-.06-1.065-.05-1.79-.218-2.428-.465a4.89 4.89 0 01-1.772-1.153 4.904 4.904 0 01-1.153-1.772c-.248-.637-.415-1.363-.465-2.428C2.013 15.056 2 14.717 2 12c0-2.717.01-3.056.06-4.122.05-1.066.217-1.79.465-2.428a4.88 4.88 0 011.153-1.772A4.897 4.897 0 015.45 2.525c.638-.248 1.362-.415 2.428-.465C8.944 2.013 9.283 2 12 2zm0 5a5 5 0 100 10 5 5 0 000-10zm6.5-.25a1.25 1.25 0 10-2.5 0 1.25 1.25 0 002.5 0zM12 9a3 3 0 110 6 3 3 0 010-6z"/></svg>
+                        </a>
+                        <a href="#" aria-label="Twitter">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="#home">Home</a></li>
+                            <li><a href="#about">Our Story</a></li>
+                            <li><a href="#menu">Menu</a></li>
+                            <li><a href="#gallery">Gallery</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Menu</h4>
+                        <ul>
+                            <li><a href="#menu">Signature Pizzas</a></li>
+                            <li><a href="#menu">Chef's Specials</a></li>
+                            <li><a href="#menu">Sides & Salads</a></li>
+                            <li><a href="#menu">Beverages</a></li>
+                            <li><a href="#">Catering Menu</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Contact</h4>
+                        <ul>
+                            <li>123 Little Italy Lane</li>
+                            <li>New York, NY 10013</li>
+                            <li>(212) 555-MAMA</li>
+                            <li>ciao@mamanias.com</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Mama Nia's Pizza. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <div class="toast-content">
+            <span class="toast-icon">✓</span>
+            <span class="toast-message">Item added to order!</span>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
