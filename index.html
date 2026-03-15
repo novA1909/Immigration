@@ -1,0 +1,1625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maison Hamper — Curated Luxury Gifts</title>
+  <meta name="description" content="Maison Hamper crafts bespoke luxury gift hampers for every occasion — from intimate celebrations to distinguished corporate gestures." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─────────────────────────────────────────
+       RESET & BASE
+    ───────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:     #F8F4EE;
+      --parchment: #EFE7D8;
+      --gold:      #B8975A;
+      --gold-lt:   #D4AE78;
+      --charcoal:  #1C1C1A;
+      --muted:     #6B6559;
+      --white:     #FFFFFF;
+      --ff-display: 'Cormorant Garamond', Georgia, serif;
+      --ff-body:    'Jost', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--ff-body);
+      background: var(--cream);
+      color: var(--charcoal);
+      overflow-x: hidden;
+    }
+
+    /* Noise texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.028;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    img { display: block; }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2.5rem;
+    }
+
+    /* Gold gradient divider */
+    .gold-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, var(--gold) 35%, var(--gold) 65%, transparent 100%);
+      opacity: 0.45;
+    }
+
+    /* Section base */
+    .section { padding: 7rem 0; }
+
+    .section-header { text-align: center; margin-bottom: 4rem; }
+
+    .section-eyebrow {
+      display: block;
+      font-family: var(--ff-body);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: var(--ff-display);
+      font-size: clamp(2rem, 3.5vw, 3.2rem);
+      font-weight: 400;
+      color: var(--charcoal);
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+
+    .section-title em { font-style: italic; color: var(--gold); }
+
+    .section-sub {
+      font-size: 0.88rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.85;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-d1 { transition-delay: 0.1s; }
+    .reveal-d2 { transition-delay: 0.2s; }
+    .reveal-d3 { transition-delay: 0.3s; }
+    .reveal-d4 { transition-delay: 0.4s; }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      font-family: var(--ff-body);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      border: 1px solid;
+      transition: background 0.3s ease, color 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .btn-dark {
+      padding: 1rem 2.2rem;
+      background: var(--charcoal);
+      color: var(--cream);
+      border-color: var(--charcoal);
+    }
+    .btn-dark:hover { background: transparent; color: var(--charcoal); }
+
+    .btn-ghost {
+      padding: 1rem 2.2rem;
+      background: transparent;
+      color: var(--charcoal);
+      border-color: var(--charcoal);
+    }
+    .btn-ghost:hover { background: var(--charcoal); color: var(--cream); }
+
+    .btn-gold {
+      padding: 1rem 2.2rem;
+      background: var(--gold);
+      color: var(--white);
+      border-color: var(--gold);
+    }
+    .btn-gold:hover { background: transparent; color: var(--gold); }
+
+    /* ─────────────────────────────────────────
+       NAVBAR
+    ───────────────────────────────────────── */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: rgba(248, 244, 238, 0.93);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(184, 151, 90, 0.18);
+      transition: box-shadow 0.4s ease;
+    }
+    #navbar.scrolled { box-shadow: 0 4px 32px rgba(28, 28, 26, 0.1); }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+      padding: 0 2.5rem;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .nav-logo {
+      font-family: var(--ff-display);
+      font-size: 1.55rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: var(--charcoal);
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .nav-logo em { font-style: italic; color: var(--gold); }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .nav-links a {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--charcoal);
+      text-decoration: none;
+      position: relative;
+      transition: color 0.3s;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 1px;
+      background: var(--gold);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+
+    .nav-cart {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-family: var(--ff-body);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--charcoal);
+      background: transparent;
+      border: 1px solid var(--charcoal);
+      padding: 0.55rem 1.1rem;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+    }
+    .nav-cart:hover { background: var(--charcoal); color: var(--cream); }
+
+    .cart-badge {
+      background: var(--gold);
+      color: var(--white);
+      border-radius: 50%;
+      width: 18px; height: 18px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.6rem; font-weight: 600;
+      line-height: 1;
+    }
+
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 22px; height: 1.5px;
+      background: var(--charcoal);
+      transition: all 0.3s;
+    }
+
+    /* Mobile nav */
+    .mobile-nav {
+      display: none;
+      flex-direction: column;
+      gap: 0;
+      position: fixed;
+      top: 72px; left: 0; right: 0;
+      background: rgba(248, 244, 238, 0.98);
+      backdrop-filter: blur(14px);
+      z-index: 999;
+      border-bottom: 1px solid rgba(184, 151, 90, 0.2);
+      padding: 0.5rem 2rem;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--charcoal);
+      text-decoration: none;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--parchment);
+    }
+    .mobile-nav a:last-child { border-bottom: none; }
+
+    /* ─────────────────────────────────────────
+       HERO
+    ───────────────────────────────────────── */
+    #hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 100vh;
+      padding-top: 72px;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5rem 4rem 5rem 5rem;
+      background: var(--cream);
+    }
+
+    .hero-eyebrow {
+      font-family: var(--ff-body);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.9s cubic-bezier(0.22,1,0.36,1) both;
+      animation-delay: 0.15s;
+    }
+
+    .hero-title {
+      font-family: var(--ff-display);
+      font-size: clamp(3rem, 5vw, 5rem);
+      line-height: 1.08;
+      font-weight: 400;
+      color: var(--charcoal);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.9s cubic-bezier(0.22,1,0.36,1) both;
+      animation-delay: 0.3s;
+    }
+    .hero-title em { font-style: italic; color: var(--gold); }
+
+    .hero-sub {
+      font-size: 0.92rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.9;
+      max-width: 400px;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.9s cubic-bezier(0.22,1,0.36,1) both;
+      animation-delay: 0.45s;
+    }
+
+    .hero-stats {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-bottom: 3rem;
+      opacity: 0;
+      animation: fadeUp 0.9s cubic-bezier(0.22,1,0.36,1) both;
+      animation-delay: 0.6s;
+    }
+
+    .hero-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      padding: 0 2rem;
+    }
+    .hero-stat:first-child { padding-left: 0; }
+
+    .hero-stat strong {
+      font-family: var(--ff-display);
+      font-size: 2.2rem;
+      font-weight: 500;
+      color: var(--charcoal);
+      line-height: 1;
+    }
+    .hero-stat span {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .stat-rule {
+      width: 1px;
+      height: 40px;
+      background: rgba(107,101,89,0.25);
+      flex-shrink: 0;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.9s cubic-bezier(0.22,1,0.36,1) both;
+      animation-delay: 0.75s;
+    }
+
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      animation: fadeIn 1.2s ease both;
+      animation-delay: 0.2s;
+    }
+    .hero-right img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 10s ease;
+    }
+    .hero-right:hover img { transform: scale(1.04); }
+    .hero-right-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(28,28,26,0.18) 0%, transparent 55%);
+    }
+
+    /* ─────────────────────────────────────────
+       MARQUEE
+    ───────────────────────────────────────── */
+    #marquee {
+      background: var(--charcoal);
+      padding: 1rem 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .marquee-track {
+      display: inline-flex;
+      animation: marquee-scroll 36s linear infinite;
+    }
+    .marquee-item {
+      font-family: var(--ff-body);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(239,231,216,0.75);
+      padding: 0 2.5rem;
+    }
+    .marquee-gem { color: var(--gold); }
+
+    @keyframes marquee-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ─────────────────────────────────────────
+       CATEGORIES
+    ───────────────────────────────────────── */
+    #categories { background: var(--parchment); }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+    }
+
+    .category-card {
+      position: relative;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .category-card img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .category-card:hover img { transform: scale(1.09); }
+
+    .cat-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top,
+        rgba(28,28,26,0.85) 0%,
+        rgba(28,28,26,0.2) 50%,
+        transparent 100%);
+      transition: background 0.45s ease;
+    }
+    .category-card:hover .cat-overlay {
+      background: linear-gradient(to top,
+        rgba(28,28,26,0.92) 0%,
+        rgba(28,28,26,0.45) 60%,
+        rgba(28,28,26,0.08) 100%);
+    }
+
+    .cat-info {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 2rem 1.5rem;
+      transform: translateY(6px);
+      transition: transform 0.4s ease;
+    }
+    .category-card:hover .cat-info { transform: translateY(0); }
+
+    .cat-name {
+      font-family: var(--ff-display);
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 0.35rem;
+    }
+
+    .cat-count {
+      font-family: var(--ff-body);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.4s ease 0.06s, transform 0.4s ease 0.06s;
+    }
+    .category-card:hover .cat-count { opacity: 1; transform: translateY(0); }
+
+    /* ─────────────────────────────────────────
+       FEATURED PRODUCTS
+    ───────────────────────────────────────── */
+    #products { background: var(--cream); }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .product-card {
+      background: var(--white);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 24px 64px rgba(28,28,26,0.13);
+    }
+
+    .prod-img {
+      position: relative;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+    }
+    .prod-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.65s ease;
+    }
+    .product-card:hover .prod-img img { transform: scale(1.07); }
+
+    .prod-badge {
+      position: absolute;
+      top: 1rem; left: 1rem;
+      background: var(--charcoal);
+      color: var(--cream);
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.28rem 0.65rem;
+    }
+
+    .prod-wish {
+      position: absolute;
+      top: 1rem; right: 1rem;
+      width: 36px; height: 36px;
+      background: rgba(255,255,255,0.92);
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted);
+      transition: color 0.3s, transform 0.3s;
+    }
+    .prod-wish:hover { transform: scale(1.12); }
+    .prod-wish.active { color: var(--gold); }
+
+    .prod-info { padding: 1.25rem; }
+
+    .prod-cat {
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+    }
+
+    .prod-name {
+      font-family: var(--ff-display);
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--charcoal);
+      margin-bottom: 0.4rem;
+      line-height: 1.2;
+    }
+
+    .prod-desc {
+      font-size: 0.78rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 1.1rem;
+    }
+
+    .prod-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .prod-price {
+      font-family: var(--ff-display);
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--charcoal);
+    }
+
+    .btn-add {
+      font-family: var(--ff-body);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.6rem 1.1rem;
+      background: var(--charcoal);
+      color: var(--cream);
+      border: 1px solid var(--charcoal);
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s, border-color 0.3s;
+    }
+    .btn-add:hover { background: transparent; color: var(--charcoal); }
+    .btn-add.added {
+      background: transparent;
+      color: var(--gold);
+      border-color: var(--gold);
+    }
+
+    /* ─────────────────────────────────────────
+       SHOP BY OCCASION
+    ───────────────────────────────────────── */
+    #occasions { background: var(--parchment); }
+
+    .occasion-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      justify-content: center;
+    }
+
+    .occasion-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--ff-body);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      padding: 0.85rem 1.8rem;
+      border: 1.5px solid var(--charcoal);
+      background: transparent;
+      color: var(--charcoal);
+      cursor: pointer;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    .occasion-pill:hover { background: var(--charcoal); color: var(--cream); }
+    .occasion-pill .em { font-size: 1rem; }
+
+    /* ─────────────────────────────────────────
+       CORPORATE GIFTING
+    ───────────────────────────────────────── */
+    #corporate { background: var(--charcoal); }
+
+    .corporate-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 540px;
+    }
+
+    .corp-img {
+      position: relative;
+      overflow: hidden;
+    }
+    .corp-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.8s ease;
+    }
+    .corp-img:hover img { transform: scale(1.05); }
+    .corp-img-overlay {
+      position: absolute; inset: 0;
+      background: rgba(28,28,26,0.28);
+    }
+
+    .corp-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 4.5rem 4rem;
+      background: var(--charcoal);
+    }
+    .corp-text .section-eyebrow { text-align: left; }
+
+    .corp-title {
+      font-family: var(--ff-display);
+      font-size: clamp(1.9rem, 3vw, 2.8rem);
+      font-weight: 400;
+      color: var(--cream);
+      line-height: 1.18;
+      margin-bottom: 1.4rem;
+    }
+    .corp-title em { font-style: italic; color: var(--gold); }
+
+    .corp-sub {
+      font-size: 0.87rem;
+      font-weight: 300;
+      color: rgba(239,231,216,0.65);
+      line-height: 1.9;
+      margin-bottom: 2rem;
+    }
+
+    .corp-features {
+      list-style: none;
+      margin-bottom: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+    .corp-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      font-size: 0.84rem;
+      font-weight: 300;
+      color: rgba(239,231,216,0.82);
+      line-height: 1.5;
+    }
+    .feat-mark { color: var(--gold); flex-shrink: 0; font-size: 0.7rem; margin-top: 0.2rem; }
+
+    /* ─────────────────────────────────────────
+       TESTIMONIALS
+    ───────────────────────────────────────── */
+    #testimonials { background: var(--cream); }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .testi-card {
+      background: var(--white);
+      padding: 2.5rem;
+      border-top: 2px solid var(--gold);
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+    .testi-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 48px rgba(28,28,26,0.09);
+    }
+
+    .testi-stars {
+      display: flex; gap: 0.2rem;
+      margin-bottom: 1.2rem;
+    }
+    .star { color: var(--gold); font-size: 0.85rem; }
+
+    .testi-quote {
+      font-family: var(--ff-display);
+      font-size: 1.05rem;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--charcoal);
+      line-height: 1.75;
+      margin-bottom: 1.6rem;
+    }
+
+    .testi-author {
+      border-top: 1px solid var(--parchment);
+      padding-top: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    .author-name {
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--charcoal);
+    }
+    .author-role {
+      font-size: 0.75rem;
+      font-weight: 300;
+      color: var(--muted);
+    }
+
+    /* ─────────────────────────────────────────
+       NEWSLETTER
+    ───────────────────────────────────────── */
+    #newsletter {
+      background: var(--parchment);
+      padding: 7rem 0;
+      text-align: center;
+    }
+    .newsletter-wrap {
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .nl-form {
+      display: flex;
+      gap: 0;
+      margin-top: 2.5rem;
+    }
+    .nl-input {
+      flex: 1;
+      font-family: var(--ff-body);
+      font-size: 0.85rem;
+      font-weight: 300;
+      padding: 1rem 1.2rem;
+      border: 1px solid rgba(107,101,89,0.35);
+      border-right: none;
+      background: var(--cream);
+      color: var(--charcoal);
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .nl-input::placeholder { color: rgba(107,101,89,0.55); }
+    .nl-input:focus { border-color: var(--gold); }
+
+    .nl-btn {
+      font-family: var(--ff-body);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 1rem 1.8rem;
+      background: var(--charcoal);
+      color: var(--cream);
+      border: 1px solid var(--charcoal);
+      cursor: pointer;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .nl-btn:hover { background: var(--gold); border-color: var(--gold); }
+
+    .nl-note {
+      font-size: 0.72rem;
+      font-weight: 300;
+      color: var(--muted);
+      margin-top: 1rem;
+    }
+
+    /* ─────────────────────────────────────────
+       FOOTER
+    ───────────────────────────────────────── */
+    #footer {
+      background: var(--charcoal);
+      padding: 5.5rem 0 0;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr 1fr;
+      gap: 3rem;
+      padding-bottom: 4.5rem;
+    }
+
+    .footer-logo {
+      font-family: var(--ff-display);
+      font-size: 1.8rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: var(--cream);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 1.3rem;
+    }
+    .footer-logo em { font-style: italic; color: var(--gold); }
+
+    .footer-tag {
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: rgba(239,231,216,0.55);
+      line-height: 1.85;
+      margin-bottom: 1.8rem;
+    }
+
+    .footer-social {
+      display: flex; gap: 1.2rem;
+    }
+    .soc-link {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(239,231,216,0.4);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .soc-link:hover { color: var(--gold); }
+
+    .footer-col h4 {
+      font-family: var(--ff-body);
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--parchment);
+      margin-bottom: 1.6rem;
+    }
+
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; }
+    .footer-links a {
+      font-size: 0.84rem;
+      font-weight: 300;
+      color: rgba(239,231,216,0.5);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--gold); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(239,231,216,0.09);
+      padding: 1.6rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-copy {
+      font-size: 0.73rem;
+      font-weight: 300;
+      color: rgba(239,231,216,0.3);
+    }
+    .footer-legal { display: flex; gap: 1.5rem; }
+    .footer-legal a {
+      font-size: 0.72rem;
+      font-weight: 300;
+      color: rgba(239,231,216,0.3);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-legal a:hover { color: var(--gold); }
+
+    /* ─────────────────────────────────────────
+       KEYFRAMES
+    ───────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(26px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* ─────────────────────────────────────────
+       RESPONSIVE
+    ───────────────────────────────────────── */
+    @media (max-width: 1100px) {
+      .category-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+      .product-grid  { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid   { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+      .nav-links     { gap: 1.8rem; }
+    }
+
+    @media (max-width: 768px) {
+      #hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left  { padding: 3.5rem 1.5rem; order: 2; }
+      .hero-right { height: 56vw; min-height: 280px; order: 1; }
+      .nav-links  { display: none; }
+      .nav-hamburger { display: flex; }
+      .nav-inner  { padding: 0 1.5rem; }
+      .testimonial-grid { grid-template-columns: 1fr; }
+      .corporate-wrap { grid-template-columns: 1fr; }
+      .corp-img { height: 280px; }
+      .corp-text { padding: 3rem 1.8rem; }
+      .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+      .section { padding: 4.5rem 0; }
+      .hero-title { font-size: clamp(2.5rem,8vw,3.5rem); }
+    }
+
+    @media (max-width: 560px) {
+      .product-grid  { grid-template-columns: 1fr; }
+      .category-grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+      .hero-stats    { gap: 0; flex-wrap: wrap; }
+      .hero-stat     { padding: 0 1.2rem; }
+      .hero-ctas     { flex-direction: column; }
+      .nl-form       { flex-direction: column; }
+      .nl-input      { border-right: 1px solid rgba(107,101,89,0.35); border-bottom: none; }
+      .footer-grid   { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-legal  { flex-direction: column; gap: 0.6rem; align-items: center; }
+      .container     { padding: 0 1.25rem; }
+    }
+
+    @media (max-width: 400px) {
+      .category-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ╔═══════════════════════════╗
+       ║         NAVBAR            ║
+       ╚═══════════════════════════╝ -->
+  <nav id="navbar" aria-label="Primary navigation">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">Maison <em>Hamper</em></a>
+
+      <ul class="nav-links">
+        <li><a href="#categories">Collections</a></li>
+        <li><a href="#products">Shop</a></li>
+        <li><a href="#occasions">Occasions</a></li>
+        <li><a href="#corporate">Corporate</a></li>
+        <li><a href="#testimonials">Stories</a></li>
+      </ul>
+
+      <div class="nav-right">
+        <button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+        <button class="nav-cart" id="cartBtn" aria-label="Shopping cart">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 01-8 0"/>
+          </svg>
+          Cart
+          <div class="cart-badge" id="cartCount" aria-live="polite">0</div>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile nav -->
+    <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+      <a href="#categories" >Collections</a>
+      <a href="#products">Shop</a>
+      <a href="#occasions">Occasions</a>
+      <a href="#corporate">Corporate</a>
+      <a href="#testimonials">Stories</a>
+    </div>
+  </nav>
+
+
+  <!-- ╔═══════════════════════════╗
+       ║           HERO            ║
+       ╚═══════════════════════════╝ -->
+  <section id="hero" aria-label="Hero">
+    <div class="hero-left">
+      <p class="hero-eyebrow">Est. 2018 · New Delhi, India</p>
+
+      <h1 class="hero-title">
+        Gifts that carry<br />
+        <em>meaning &amp; grace</em>
+      </h1>
+
+      <p class="hero-sub">
+        Curated luxury hampers for every occasion — from intimate celebrations to distinguished corporate gestures. Each hamper is a story, beautifully told.
+      </p>
+
+      <div class="hero-stats" aria-label="Key figures">
+        <div class="hero-stat">
+          <strong>240+</strong>
+          <span>Products</span>
+        </div>
+        <div class="stat-rule" aria-hidden="true"></div>
+        <div class="hero-stat">
+          <strong>18K+</strong>
+          <span>Customers</span>
+        </div>
+        <div class="stat-rule" aria-hidden="true"></div>
+        <div class="hero-stat">
+          <strong>48hr</strong>
+          <span>Delivery</span>
+        </div>
+      </div>
+
+      <div class="hero-ctas">
+        <a href="#products" class="btn btn-dark">Explore Collection</a>
+        <a href="#corporate" class="btn btn-ghost">Corporate Gifting</a>
+      </div>
+    </div>
+
+    <div class="hero-right" aria-hidden="true">
+      <img
+        src="https://images.unsplash.com/photo-1549465220-1925021f4987?w=1400&q=85"
+        alt="Luxury gift hamper with ribbons"
+        loading="eager"
+        fetchpriority="high"
+      />
+      <div class="hero-right-overlay"></div>
+    </div>
+  </section>
+
+
+  <!-- ╔═══════════════════════════╗
+       ║          MARQUEE          ║
+       ╚═══════════════════════════╝ -->
+  <div id="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span class="marquee-item">Free Delivery on Orders Above ₹3,000 <span class="marquee-gem">✦</span></span>
+      <span class="marquee-item">Bespoke Corporate Hampers Available <span class="marquee-gem">✦</span></span>
+      <span class="marquee-item">Handcrafted with Premium Indian &amp; Imported Goods <span class="marquee-gem">✦</span></span>
+      <span class="marquee-item">Next-Day Delivery in Select Cities <span class="marquee-gem">✦</span></span>
+      <span class="marquee-item">Personalised Ribbon &amp; Calligraphy Cards <span class="marquee-gem">✦</span></span>
+      <span class="marquee-item">Over 18,000 Happy Recipients <span class="marquee-gem">✦</span></span>
+      <span class="marquee-item">Seasonal Collections Now Live <span class="marquee-gem">✦</span></span>
+      <!-- Duplicate for seamless loop -->
+      <span class="marquee-item">Free Delivery on Orders Above ₹3,000 <span class="marquee-gem">✦</span></span>
+      <span class="marquee-item">Bespoke Corporate Hampers Available <span class="marquee-gem">✦</span></span>
+      <span class="marquee-item">Handcrafted with Premium Indian &amp; Imported Goods <span class="marquee-gem">✦</span></span>
+      <span class="marquee-item">Next-Day Delivery in Select Cities <span class="marquee-gem">✦</span></span>
+      <span class="marquee-item">Personalised Ribbon &amp; Calligraphy Cards <span class="marquee-gem">✦</span></span>
+      <span class="marquee-item">Over 18,000 Happy Recipients <span class="marquee-gem">✦</span></span>
+      <span class="marquee-item">Seasonal Collections Now Live <span class="marquee-gem">✦</span></span>
+    </div>
+  </div>
+
+  <div class="gold-divider"></div>
+
+
+  <!-- ╔═══════════════════════════╗
+       ║    CATEGORY GRID          ║
+       ╚═══════════════════════════╝ -->
+  <section id="categories" class="section">
+    <div class="container">
+      <header class="section-header">
+        <span class="section-eyebrow">Our Collections</span>
+        <h2 class="section-title">Shop by <em>Category</em></h2>
+        <p class="section-sub">Thoughtfully curated hampers for every taste, mood, and moment.</p>
+      </header>
+
+      <div class="category-grid">
+
+        <div class="category-card reveal">
+          <img
+            src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80"
+            alt="Food and Beverage hampers"
+            loading="lazy"
+          />
+          <div class="cat-overlay"></div>
+          <div class="cat-info">
+            <h3 class="cat-name">Food &amp;<br>Beverage</h3>
+            <p class="cat-count">64 Products →</p>
+          </div>
+        </div>
+
+        <div class="category-card reveal reveal-d1">
+          <img
+            src="https://images.unsplash.com/photo-1519751138087-5bf79df62d5b?w=800&q=80"
+            alt="Lifestyle and Wellness hampers"
+            loading="lazy"
+          />
+          <div class="cat-overlay"></div>
+          <div class="cat-info">
+            <h3 class="cat-name">Lifestyle &amp;<br>Wellness</h3>
+            <p class="cat-count">48 Products →</p>
+          </div>
+        </div>
+
+        <div class="category-card reveal reveal-d2">
+          <img
+            src="https://images.unsplash.com/photo-1607344645866-009c320b63e0?w=800&q=80"
+            alt="Occasion specific hampers"
+            loading="lazy"
+          />
+          <div class="cat-overlay"></div>
+          <div class="cat-info">
+            <h3 class="cat-name">Occasion<br>Specific</h3>
+            <p class="cat-count">72 Products →</p>
+          </div>
+        </div>
+
+        <div class="category-card reveal reveal-d3">
+          <img
+            src="https://images.unsplash.com/photo-1556761175-4b46a572b786?w=800&q=80"
+            alt="Corporate and B2B hampers"
+            loading="lazy"
+          />
+          <div class="cat-overlay"></div>
+          <div class="cat-info">
+            <h3 class="cat-name">Corporate<br>&amp; B2B</h3>
+            <p class="cat-count">56 Products →</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="gold-divider"></div>
+
+
+  <!-- ╔═══════════════════════════╗
+       ║    FEATURED PRODUCTS      ║
+       ╚═══════════════════════════╝ -->
+  <section id="products" class="section">
+    <div class="container">
+      <header class="section-header">
+        <span class="section-eyebrow">Featured</span>
+        <h2 class="section-title">Our <em>Finest</em> Selections</h2>
+        <p class="section-sub">Each hamper is assembled with the utmost care, using only the finest ingredients and materials.</p>
+      </header>
+
+      <div class="product-grid">
+
+        <!-- Product 1 -->
+        <div class="product-card reveal">
+          <div class="prod-img">
+            <img
+              src="https://images.unsplash.com/photo-1474722883778-792e7990302f?w=700&q=80"
+              alt="The Grand Epicure hamper"
+              loading="lazy"
+            />
+            <span class="prod-badge">Bestseller</span>
+            <button class="prod-wish" aria-label="Add to wishlist">♡</button>
+          </div>
+          <div class="prod-info">
+            <p class="prod-cat">Food &amp; Beverage</p>
+            <h3 class="prod-name">The Grand Epicure</h3>
+            <p class="prod-desc">An indulgent selection of artisan cheeses, fine wines, truffle preserves, and handmade dark chocolates.</p>
+            <div class="prod-footer">
+              <span class="prod-price">₹8,500</span>
+              <button class="btn-add">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card reveal reveal-d1">
+          <div class="prod-img">
+            <img
+              src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=700&q=80"
+              alt="The Spa Sanctuary hamper"
+              loading="lazy"
+            />
+            <span class="prod-badge">New Arrival</span>
+            <button class="prod-wish" aria-label="Add to wishlist">♡</button>
+          </div>
+          <div class="prod-info">
+            <p class="prod-cat">Lifestyle &amp; Wellness</p>
+            <h3 class="prod-name">The Spa Sanctuary</h3>
+            <p class="prod-desc">A calming retreat in a box — essential oils, Himalayan bath salts, silk eye mask, and artisan herbal teas.</p>
+            <div class="prod-footer">
+              <span class="prod-price">₹6,200</span>
+              <button class="btn-add">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-card reveal reveal-d2">
+          <div class="prod-img">
+            <img
+              src="https://images.unsplash.com/photo-1543804793-0e820e8aef9b?w=700&q=80"
+              alt="The Celebration Collection hamper"
+              loading="lazy"
+            />
+            <span class="prod-badge">Limited Edition</span>
+            <button class="prod-wish" aria-label="Add to wishlist">♡</button>
+          </div>
+          <div class="prod-info">
+            <p class="prod-cat">Occasion Specific</p>
+            <h3 class="prod-name">The Celebration</h3>
+            <p class="prod-desc">Sparkling wines, gold-foil truffles, and festive keepsakes crafted for birthdays and life milestones.</p>
+            <div class="prod-footer">
+              <span class="prod-price">₹11,000</span>
+              <button class="btn-add">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 4 -->
+        <div class="product-card reveal reveal-d3">
+          <div class="prod-img">
+            <img
+              src="https://images.unsplash.com/photo-1587355760421-b9de3226a046?w=700&q=80"
+              alt="The Executive Suite hamper"
+              loading="lazy"
+            />
+            <span class="prod-badge">Corporate Pick</span>
+            <button class="prod-wish" aria-label="Add to wishlist">♡</button>
+          </div>
+          <div class="prod-info">
+            <p class="prod-cat">Corporate &amp; B2B</p>
+            <h3 class="prod-name">The Executive Suite</h3>
+            <p class="prod-desc">Premium stationery, single-origin coffee, and bespoke branded packaging designed for discerning professionals.</p>
+            <div class="prod-footer">
+              <span class="prod-price">₹15,500</span>
+              <button class="btn-add">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="gold-divider"></div>
+
+
+  <!-- ╔═══════════════════════════╗
+       ║     SHOP BY OCCASION      ║
+       ╚═══════════════════════════╝ -->
+  <section id="occasions" class="section">
+    <div class="container">
+      <header class="section-header">
+        <span class="section-eyebrow">Every Moment</span>
+        <h2 class="section-title">Shop by <em>Occasion</em></h2>
+        <p class="section-sub">Whatever the moment calls for, we have the perfect gift waiting for you.</p>
+      </header>
+
+      <div class="occasion-grid">
+        <button class="occasion-pill"><span class="em">🎄</span> Christmas</button>
+        <button class="occasion-pill"><span class="em">🎂</span> Birthday</button>
+        <button class="occasion-pill"><span class="em">💍</span> Wedding</button>
+        <button class="occasion-pill"><span class="em">👶</span> New Baby</button>
+        <button class="occasion-pill"><span class="em">💼</span> Corporate</button>
+        <button class="occasion-pill"><span class="em">🙏</span> Thank You</button>
+        <button class="occasion-pill"><span class="em">🥂</span> Anniversary</button>
+        <button class="occasion-pill"><span class="em">🏠</span> Housewarming</button>
+        <button class="occasion-pill"><span class="em">🕯️</span> Diwali</button>
+        <button class="occasion-pill"><span class="em">🌸</span> Mother's Day</button>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ╔═══════════════════════════╗
+       ║    CORPORATE BANNER       ║
+       ╚═══════════════════════════╝ -->
+  <section id="corporate">
+    <div class="corporate-wrap">
+
+      <div class="corp-img">
+        <img
+          src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1200&q=80"
+          alt="Corporate gifting partnership"
+          loading="lazy"
+        />
+        <div class="corp-img-overlay"></div>
+      </div>
+
+      <div class="corp-text">
+        <span class="section-eyebrow">For Businesses</span>
+
+        <h2 class="corp-title">
+          Elevate Your<br />
+          <em>Corporate Gifting</em>
+        </h2>
+
+        <p class="corp-sub">
+          Make a lasting impression with bespoke hampers that speak to your brand's values. From client appreciation to employee milestones — we create memorable gifting experiences at scale.
+        </p>
+
+        <ul class="corp-features">
+          <li><span class="feat-mark">✦</span> Fully branded packaging with your logo &amp; personalised message</li>
+          <li><span class="feat-mark">✦</span> Minimum order of 20 hampers; generous bulk pricing tiers available</li>
+          <li><span class="feat-mark">✦</span> Pan-India delivery with real-time shipment tracking</li>
+          <li><span class="feat-mark">✦</span> Dedicated relationship manager assigned to your account</li>
+          <li><span class="feat-mark">✦</span> GST invoicing &amp; corporate account setup within 24 hours</li>
+        </ul>
+
+        <a href="#" class="btn btn-gold">Request a Quote</a>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="gold-divider"></div>
+
+
+  <!-- ╔═══════════════════════════╗
+       ║      TESTIMONIALS         ║
+       ╚═══════════════════════════╝ -->
+  <section id="testimonials" class="section">
+    <div class="container">
+      <header class="section-header">
+        <span class="section-eyebrow">Client Stories</span>
+        <h2 class="section-title">What Our Clients <em>Say</em></h2>
+      </header>
+
+      <div class="testimonial-grid">
+
+        <div class="testi-card reveal">
+          <div class="testi-stars" aria-label="5 out of 5 stars">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+          <p class="testi-quote">
+            "The hamper arrived beautifully packaged — it felt like unwrapping a piece of art. My client was absolutely delighted. Maison Hamper has become our go-to for every corporate occasion."
+          </p>
+          <div class="testi-author">
+            <span class="author-name">Priya Mehta</span>
+            <span class="author-role">Head of Client Relations, Axiom Capital</span>
+          </div>
+        </div>
+
+        <div class="testi-card reveal reveal-d1">
+          <div class="testi-stars" aria-label="5 out of 5 stars">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+          <p class="testi-quote">
+            "I ordered The Spa Sanctuary for my mother's birthday and she called me in tears — it was so thoughtful and luxurious. The personalised calligraphy note made it feel truly special."
+          </p>
+          <div class="testi-author">
+            <span class="author-name">Arjun Sharma</span>
+            <span class="author-role">Architect &amp; Design Enthusiast, Mumbai</span>
+          </div>
+        </div>
+
+        <div class="testi-card reveal reveal-d2">
+          <div class="testi-stars" aria-label="5 out of 5 stars">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+          <p class="testi-quote">
+            "We ordered 150 Diwali hampers for our entire office. Every single one was perfect — delivered on time, impeccably presented. The team at Maison Hamper is truly exceptional."
+          </p>
+          <div class="testi-author">
+            <span class="author-name">Neha Kapoor</span>
+            <span class="author-role">People Operations Lead, Luminary Tech</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ╔═══════════════════════════╗
+       ║       NEWSLETTER          ║
+       ╚═══════════════════════════╝ -->
+  <section id="newsletter">
+    <div class="newsletter-wrap">
+      <span class="section-eyebrow">Stay in the Loop</span>
+      <h2 class="section-title">New Arrivals &amp; <em>Exclusive Offers</em></h2>
+      <p class="section-sub" style="margin-top:0.8rem;">
+        Be the first to discover our seasonal collections and members-only promotions.
+      </p>
+      <div class="nl-form">
+        <input
+          type="email"
+          class="nl-input"
+          id="nlInput"
+          placeholder="Your email address"
+          aria-label="Email address"
+        />
+        <button class="nl-btn" id="nlBtn">Subscribe</button>
+      </div>
+      <p class="nl-note">We respect your privacy. Unsubscribe at any time.</p>
+    </div>
+  </section>
+
+
+  <!-- ╔═══════════════════════════╗
+       ║          FOOTER           ║
+       ╚═══════════════════════════╝ -->
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-grid">
+
+        <!-- Brand -->
+        <div>
+          <a href="#" class="footer-logo">Maison <em>Hamper</em></a>
+          <p class="footer-tag">
+            Curated luxury gifts for life's most meaningful moments. Crafted with care, delivered with love — across India.
+          </p>
+          <div class="footer-social">
+            <a href="#" class="soc-link">Instagram</a>
+            <a href="#" class="soc-link">Pinterest</a>
+            <a href="#" class="soc-link">LinkedIn</a>
+          </div>
+        </div>
+
+        <!-- Shop -->
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <ul class="footer-links">
+            <li><a href="#">New Arrivals</a></li>
+            <li><a href="#">Food &amp; Beverage</a></li>
+            <li><a href="#">Lifestyle &amp; Wellness</a></li>
+            <li><a href="#">Occasion Gifts</a></li>
+            <li><a href="#">Corporate Hampers</a></li>
+            <li><a href="#">Sale</a></li>
+          </ul>
+        </div>
+
+        <!-- Help -->
+        <div class="footer-col">
+          <h4>Help</h4>
+          <ul class="footer-links">
+            <li><a href="#">Track My Order</a></li>
+            <li><a href="#">Delivery Information</a></li>
+            <li><a href="#">Returns &amp; Exchanges</a></li>
+            <li><a href="#">FAQs</a></li>
+            <li><a href="#">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <!-- Company -->
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul class="footer-links">
+            <li><a href="#">Our Story</a></li>
+            <li><a href="#">Sustainability</a></li>
+            <li><a href="#">Press</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Affiliate Programme</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 Maison Hamper Pvt. Ltd. All rights reserved.</p>
+        <nav class="footer-legal" aria-label="Legal links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Cookie Settings</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+
+  <script>
+    'use strict';
+
+    /* ── Navbar scroll shadow ── */
+    const navbar = document.getElementById('navbar');
+    const onScroll = () => navbar.classList.toggle('scrolled', window.scrollY > 20);
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    /* ── Hamburger / mobile nav ── */
+    const hamburger  = document.getElementById('hamburger');
+    const mobileNav  = document.getElementById('mobileNav');
+
+    hamburger.addEventListener('click', () => {
+      const open = mobileNav.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', open);
+      mobileNav.setAttribute('aria-hidden', !open);
+    });
+
+    mobileNav.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        mobileNav.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        mobileNav.setAttribute('aria-hidden', 'true');
+      });
+    });
+
+    /* ── Cart ── */
+    let cartTotal = 0;
+    const cartCountEl = document.getElementById('cartCount');
+
+    document.querySelectorAll('.btn-add').forEach(btn => {
+      btn.addEventListener('click', function () {
+        if (this.classList.contains('added')) return;
+
+        cartTotal++;
+        cartCountEl.textContent = cartTotal;
+
+        this.classList.add('added');
+        this.textContent = '✓ Added';
+
+        const self = this;
+        setTimeout(() => {
+          self.classList.remove('added');
+          self.textContent = 'Add to Cart';
+        }, 1800);
+      });
+    });
+
+    /* ── Wishlist hearts ── */
+    document.querySelectorAll('.prod-wish').forEach(btn => {
+      btn.addEventListener('click', function () {
+        const active = this.classList.toggle('active');
+        this.textContent = active ? '♥' : '♡';
+        this.setAttribute('aria-label', active ? 'Remove from wishlist' : 'Add to wishlist');
+      });
+    });
+
+    /* ── Scroll reveal (IntersectionObserver) ── */
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            revealObs.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+    revealEls.forEach(el => revealObs.observe(el));
+
+    /* ── Newsletter ── */
+    const nlBtn   = document.getElementById('nlBtn');
+    const nlInput = document.getElementById('nlInput');
+
+    nlBtn.addEventListener('click', () => {
+      const val = nlInput.value.trim();
+      if (val && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
+        const orig = nlBtn.textContent;
+        nlBtn.textContent = '✓ Subscribed';
+        nlBtn.style.background    = 'var(--gold)';
+        nlBtn.style.borderColor   = 'var(--gold)';
+        nlInput.value = '';
+        setTimeout(() => {
+          nlBtn.textContent         = orig;
+          nlBtn.style.background    = '';
+          nlBtn.style.borderColor   = '';
+        }, 3500);
+      } else {
+        nlInput.style.borderColor = '#c0392b';
+        nlInput.focus();
+        setTimeout(() => (nlInput.style.borderColor = ''), 2200);
+      }
+    });
+
+    nlInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter') nlBtn.click();
+    });
+
+    /* ── Occasion pills — no-op navigation ── */
+    document.querySelectorAll('.occasion-pill').forEach(pill => {
+      pill.addEventListener('click', function () {
+        // Scroll to products and highlight — extend as needed
+        document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>
