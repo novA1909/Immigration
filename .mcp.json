@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "emcp-tools": {
+      "type": "http",
+      "url": "https://paramparaoffical.in/wp-json/mcp/emcp-tools-server",
+      "headers": {
+        "Authorization": "Basic ${EMCP_TOOLS_AUTH_B64}"
+      }
+    }
+  }
+}
