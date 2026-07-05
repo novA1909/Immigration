@@ -1,10 +1,17 @@
 {
   "mcpServers": {
     "emcp-tools": {
-      "type": "http",
-      "url": "https://paramparaoffical.in/wp-json/mcp/emcp-tools-server",
-      "headers": {
-        "Authorization": "Basic ${EMCP_TOOLS_AUTH_B64}"
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@msrbuilds/emcp-proxy@latest"
+      ],
+      "env": {
+        "WP_URL": "https://paramparaoffical.in",
+        "WP_USERNAME": "${WP_USERNAME}",
+        "WP_APP_PASSWORD": "${WP_APP_PASSWORD}",
+        "MCP_PROTOCOL_VERSION": "2024-11-05"
       }
     }
   }
